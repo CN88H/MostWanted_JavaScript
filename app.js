@@ -228,6 +228,9 @@ function findPersonFamily(person, people){
 
 
 function findSpouse(currentSpouse, people){
+    // if (!currentSpouse[0]){
+    //     return `No current spouse recorded.`
+    // }
     
     let findCurrentSpouse = people.filter(function (person) {
         if (person.id === currentSpouse) {
@@ -236,21 +239,24 @@ function findSpouse(currentSpouse, people){
             return false;
         }
     })
-    return findCurrentSpouse
+    return findCurrentSpouse;
 }
-//     let currentSpouse = person.currentSpouse;
-//     let result = people.filter(function (spouse){
-//         if (spouse.id === person.currentSpouse){
-//             return true
-//         } else {
-//             return false
-//         }
-
-//     })
-//     return result
-// }
 
 
+function findParent(parents, people){
+    if (!parents[0]){
+        return `No Parent Recorded.`
+    }
+    
+    let findTheParent = people.filter(function (person) {
+        if (person.id.includes(parents)) {
+            return true;
+        } else{
+            return false;
+        }
+    })
+    return findTheParent;
+}
 // function findParent(person, people){
 //     let findParents = people.filter(function (person){
 //         if (person.parents === people.id){
