@@ -192,3 +192,59 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+
+
+//Function that will look for people by their traits and return all who have similar triats.
+function searchByTraits(people){
+    let traitsAsked = promptFor("What traits do you want to search for?", chars);
+    let traitsValues = promptFor("What is the values of traits you are searching for?", chars);
+    let foundTraits = people.filter(function(traits){
+        if(traits[traitsAsked].includes(traitsValues)){
+            return true;
+        }
+    })
+    return displayPeople(foundTraits);
+    
+    
+    
+}
+
+
+function findPersonFamily(person, people){
+    //Spouse first by Id. Find parent by their Ids, Find siblings by parents equal.
+    let currentSpouse = findSpouse();
+    let parents = findParent();
+    let siblings = findSiblings();
+    alert(currentSpouse, parents, siblings);
+}
+
+
+function findSpouse(person, people){
+    let findSpouse = people.filter(function (person){
+        if (person.currentSpouse === people.id){
+            return `Your Spouse's name is ${el.firstName} ${el.lastName}.`
+        } else {
+            return `You don't have a spouse.`
+        }
+
+    })
+}return findSpouse(foundPerson);
+
+
+function findParent(person, people){
+    let findParent = people.filter(function (person){
+        if (person.parents === people.id){
+            switch(ifAnyParent){
+                case(twoParent):
+                    if people
+                    break;
+                case(oneParent):
+                    if
+                    break;
+                case(noneParent):
+                    if
+                    break;
+            }
+        }
+    })
+}
