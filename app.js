@@ -211,7 +211,19 @@ function searchByTraits(people){
 
 function checkArrayLength(foundTraits){
     traitsLength = foundTraits.length;
-    
+    if (traitsLength > 1){
+        return reduceArray(foundTraits)
+    } else return mainMenu(foundTraits)
+}
+
+function reduceArray(foundTraits){
+    let traitsAsked = promptFor("What is another traits do you want to search for?");
+    let traitsValues = promptFor("What is the values of the trait you are searching for?")
+    let foundTraits = foundTraits.filter(function (traits){
+        if(traits[traitsAsked].includes(traitsValues)){
+            return
+        }
+    })
 }
 // function loopAndRemove(foundTraits){
 
@@ -273,7 +285,9 @@ function findParent(parents, people){
             return false;
         }
     })
+    //use parent fucntion in siblings
     displayPeople(findTheParent);
+    return (findTheParent)
 }
 
 
@@ -290,15 +304,15 @@ function findSiblings(person, people){
     displayPeople(findAllSiblings)
 }
 
-// function findPersonDescendants(person, people){
-//     let openMessage = `Let's look for your descendants!`;
-//     alert(openMessage);
-//     let findAllDescendants = people.filter(function (persons){
-//         if (person.id.includes(persons.parents)){
-//             return true;
-//         } else{
-//             return false;
-//         }
-//     })
-//     displayPeople(findAllDescendants)
-// }
+function findPersonDescendants(person, people){
+    let openMessage = `Let's look for your descendants!`;
+    alert(openMessage);
+    let findAllDescendants = people.filter(function (persons){
+        if(persons.parents.includes(person.id)){
+            return true;
+        } else{
+            return false;
+        }
+    })
+    displayPeople(findAllDescendants)
+}
