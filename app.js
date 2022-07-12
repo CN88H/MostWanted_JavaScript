@@ -222,14 +222,16 @@ function findPersonFamily(person, people){
     // return findCurrentSpouse;
     let parents = person.parents;
     let foundParents = findParent(parents, people);
-    // let siblings = person.;
-    displyFamilyInfo(foundCurrentSpouse, foundParents);
+    // let siblings = person.parents;
+    let foundSiblings = findSiblings(person, people);
+    let family = [foundCurrentSpouse, foundParents, foundSiblings];
+    // displyFamilyInfo(foundCurrentSpouse, foundParents);
 }
 
-function displyFamilyInfo(foundCurrentSpouse, foundParents){
-    let familyInfo = `Current Spouse: ${foundCurrentSpouse.firstName} ${foundCurrentSpouse.lastName} \n Parent: ${foundParents.firstName} ${foundParents.lastName}.`
-    alert(familyInfo)
-}
+// function displyFamilyInfo(foundCurrentSpouse, foundParents){
+//     let familyInfo = `Current Spouse: ${foundCurrentSpouse.firstName} ${foundCurrentSpouse.lastName} \n Parent: ${foundParents.firstName} ${foundParents.lastName}.`
+//     alert(familyInfo)
+// }
 
 function findSpouse(currentSpouse, people){
     // if (!currentSpouse[0]){
@@ -266,28 +268,17 @@ function findParent(parents, people){
     })
     displayPeople(findTheParent);
 }
-// function findParent(person, people){
-//     let findParents = people.filter(function (person){
-//         if (person.parents === people.id){
-//             switch(ifAnyParent){
-//                 case(twoParent):
-//                     if people
-//                     break;
-//                 case(oneParent):
-//                     if
-//                     break;
-//                 case(noneParent):
-//                     if
-//                     break;
-//             }
-//         }
-//     })
-// }
 
-// function findSiblings(person, people){
-//     let findSiblings = people.filter(function (person){
-//         if (person.parents === people.parents){
-//             return findSiblings
-//         }
-//     })
-// };
+
+function findSiblings(person, people){
+    let openMessage = `Let's look for your siblings!`
+    alert(openMessage)
+    let findAllSiblings = people.filter(function (persons){
+        if (persons.parents === person.parents){
+            return true;
+        } else{
+            return false;
+        }
+    })
+    displayPeople(findAllSiblings)
+}
