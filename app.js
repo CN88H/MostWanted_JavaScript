@@ -272,7 +272,7 @@ function findParent(parents, people){
 
 function findSiblings(person, people){
     let openMessage = `Let's look for your siblings!`
-    alert(openMessage)
+    alert(openMessage);
     let findAllSiblings = people.filter(function (persons){
         if (persons.parents === person.parents){
             return true;
@@ -281,4 +281,17 @@ function findSiblings(person, people){
         }
     })
     displayPeople(findAllSiblings)
+}
+
+function findPersonDescendants(person, people){
+    let openMessage = `Let's look for your descendants!`;
+    alert(openMessage);
+    let findAllDescendants = people.filter(function (persons){
+        if (person.id.includes(persons.parents)){
+            return true;
+        } else{
+            return false;
+        }
+    })
+    displayPeople(findAllDescendants)
 }
