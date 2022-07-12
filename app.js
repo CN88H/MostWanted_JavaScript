@@ -212,39 +212,67 @@ function searchByTraits(people){
 
 function findPersonFamily(person, people){
     //Spouse first by Id. Find parent by their Ids, Find siblings by parents equal.
-    let currentSpouse = findSpouse();
-    let parents = findParent();
-    let siblings = findSiblings();
-    alert(currentSpouse, parents, siblings);
+    let currentSpouse = person.currentSpouse;
+    let foundCurrentSpouse = findSpouse(currentSpouse, people);
+    // let findCurrentSpouse = people.filter(function (person) {
+    //     if (person.id === currentSpouse) {
+    //         return true;
+    //     }
+    // });
+    // return findCurrentSpouse;
+    let parents = person.parents;
+    let foundParents = findParent(parents, people);
+    // let siblings = person.;
+    alert(foundCurrentSpouse, foundParents);
 }
 
 
-function findSpouse(person, people){
-    let findSpouse = people.filter(function (person){
-        if (person.currentSpouse === people.id){
-            return `Your Spouse's name is ${el.firstName} ${el.lastName}.`
-        } else {
-            return `You don't have a spouse.`
-        }
-
-    })
-}return findSpouse(foundPerson);
-
-
-function findParent(person, people){
-    let findParent = people.filter(function (person){
-        if (person.parents === people.id){
-            switch(ifAnyParent){
-                case(twoParent):
-                    if people
-                    break;
-                case(oneParent):
-                    if
-                    break;
-                case(noneParent):
-                    if
-                    break;
-            }
+function findSpouse(currentSpouse, people){
+    
+    let findCurrentSpouse = people.filter(function (person) {
+        if (person.id === currentSpouse) {
+            return true;
+        } else{
+            return false;
         }
     })
+    return findCurrentSpouse
 }
+//     let currentSpouse = person.currentSpouse;
+//     let result = people.filter(function (spouse){
+//         if (spouse.id === person.currentSpouse){
+//             return true
+//         } else {
+//             return false
+//         }
+
+//     })
+//     return result
+// }
+
+
+// function findParent(person, people){
+//     let findParents = people.filter(function (person){
+//         if (person.parents === people.id){
+//             switch(ifAnyParent){
+//                 case(twoParent):
+//                     if people
+//                     break;
+//                 case(oneParent):
+//                     if
+//                     break;
+//                 case(noneParent):
+//                     if
+//                     break;
+//             }
+//         }
+//     })
+// }
+
+// function findSiblings(person, people){
+//     let findSiblings = people.filter(function (person){
+//         if (person.parents === people.parents){
+//             return findSiblings
+//         }
+//     })
+// };
