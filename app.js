@@ -195,20 +195,27 @@ function chars(input) {
 
 
 //Function that will look for people by their traits and return all who have similar triats.
+
 function searchByTraits(people){
     let traitsAsked = promptFor("What traits do you want to search for?", chars);
     let traitsValues = promptFor("What is the values of traits you are searching for?", chars);
-    let foundTraits = people.filter(function(traits){
+    let foundTraits = people.filter(function (traits){
         if(traits[traitsAsked].includes(traitsValues)){
             return true;
+        }else {
+            return false;
         }
-    })
-    return displayPeople(foundTraits);
-    
-    
-    
+    });
+    return checkArrayLength(foundTraits)
 }
 
+function checkArrayLength(foundTraits){
+    traitsLength = foundTraits.length;
+    
+}
+// function loopAndRemove(foundTraits){
+
+// }
 
 function findPersonFamily(person, people){
     //Spouse first by Id. Find parent by their Ids, Find siblings by parents equal.
@@ -283,15 +290,15 @@ function findSiblings(person, people){
     displayPeople(findAllSiblings)
 }
 
-function findPersonDescendants(person, people){
-    let openMessage = `Let's look for your descendants!`;
-    alert(openMessage);
-    let findAllDescendants = people.filter(function (persons){
-        if (person.id.includes(persons.parents)){
-            return true;
-        } else{
-            return false;
-        }
-    })
-    displayPeople(findAllDescendants)
-}
+// function findPersonDescendants(person, people){
+//     let openMessage = `Let's look for your descendants!`;
+//     alert(openMessage);
+//     let findAllDescendants = people.filter(function (persons){
+//         if (person.id.includes(persons.parents)){
+//             return true;
+//         } else{
+//             return false;
+//         }
+//     })
+//     displayPeople(findAllDescendants)
+// }
