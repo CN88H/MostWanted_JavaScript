@@ -200,31 +200,55 @@ function searchByTraits(people){
     let traitsAsked = promptFor("What traits do you want to search for?", chars);
     let traitsValues = promptFor("What is the values of traits you are searching for?", chars);
     let foundTraits = people.filter(function (traits){
-        if(traits[traitsAsked].includes(traitsValues)){
-            return true;
-        }else {
-            return false;
-        }
+        try {
+            if(traits[traitsAsked].includes(traitsValues)){
+                 return true;
+            }
+       } catch (error) {
+            console.log(error);
+       }
+       finally{
+            if(traits[traitsAsked]===parseInt(traitsValues)){
+                 return true;
+            }
+       }
+
+        // if(traits[traitsAsked].includes(traitsValues)){
+        //     return true;
+        // }else {
+        //     return false;
+        // }
     });
     return checkArrayLength(foundTraits)
 }
 
 function checkArrayLength(foundTraits){
-    traitsLength = foundTraits.length;
-    if (traitsLength > 1){
-        return reduceArray(foundTraits)
-    } else return mainMenu(foundTraits)
+    let traitsLength = foundTraits.length;
+    if (traitsLength === 1){
+        return mainMenu(foundTraits)
+    } else return reduceArray(foundTraits)
 }
 
 function reduceArray(foundTraits){
-    let traitsAsked = promptFor("What is another traits do you want to search for?");
-    let traitsValues = promptFor("What is the values of the trait you are searching for?")
-    let foundTraits = foundTraits.filter(function (traits){
-        if(traits[traitsAsked].includes(traitsValues)){
-            return
-        }
-    })
+    let traitsAsked = promptFor("We need to narrow this down. What is another traits do you want to search for?", chars);
+    let traitsValues = promptFor("What is the values of the trait you are searching for?", chars)
+    let newFoundTraits = foundTraits.filter(function (traits){
+        try {
+            if(traits[traitsAsked].includes(traitsValues)){
+                 return true;
+            }
+       } catch (error) {
+            console.log(error);
+       }
+       finally{
+            if(traits[traitsAsked]===parseInt(traitsValues)){
+                 return true;
+            }
+       }
+  });
+    return checkArrayLength(newFoundTraits)
 }
+
 // function loopAndRemove(foundTraits){
 
 // }
@@ -245,6 +269,7 @@ function findPersonFamily(person, people){
     let foundSiblings = findSiblings(person, people);
     let family = [foundCurrentSpouse, foundParents, foundSiblings];
     // displyFamilyInfo(foundCurrentSpouse, foundParents);
+    return displayPeople(family)
 }
 
 // function displyFamilyInfo(foundCurrentSpouse, foundParents){
@@ -259,7 +284,7 @@ function findSpouse(currentSpouse, people){
     let openMessage = `Let's find your Current Spouse!`
     alert(openMessage)
     let findCurrentSpouse = people.filter(function (person) {
-        if (person.id === currentSpouse) {
+        if (person.id === currentSpouse.currentSpouse) {
             return true;
         } else{
             return false;
@@ -314,5 +339,38 @@ function findPersonDescendants(person, people){
             return false;
         }
     })
-    displayPeople(findAllDescendants)
+    // displayPeople(findAllDescendants)
+
+    recursiveFindSubsidiaries(findAllDescendants)
+}
+
+
+
+// function findPersonDescendants(person, people){
+//     let openMessage = `Let's look for your descendants!`;
+//     alert(openMessage);
+//     let findAllDescendants = people.filter(function (persons){
+//         if(persons.parents.includes(person.id)){
+//             return true;
+//         } else{
+//             return false;
+//         }
+//     })
+//     if (subDesce)
+//     displayPeople(findAllDescendants)
+// }
+
+
+function recursiveFindSubsidiaries(findAllDescendants, array = []){
+    let subArray = findAllDescendants.subsidiaries;
+    array = [findAllDescendants];
+    if (subArray.length === 0){
+        return array;
+    }
+    for (let i = 0; i < subArray.length; i++) {
+        array = array.concat(
+            recursiveFindSubsidiaries(subArray[i])
+        );
+    }
+    return displayPeople(array)
 }
