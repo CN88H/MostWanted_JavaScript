@@ -255,122 +255,114 @@ function reduceArray(foundTraits){
 
 function findPersonFamily(person, people){
     //Spouse first by Id. Find parent by their Ids, Find siblings by parents equal.
-    let currentSpouse = person.currentSpouse;
-    let foundCurrentSpouse = findSpouse(currentSpouse, people);
+    // let currentSpouse = person.currentSpouse;
+    let foundCurrentSpouse = findSpouse(person, people);
+  
+    // let spouseMessage = `Your spouse is: }.`
+    // alert(spouseMessage, foundCurrentSpouse.firstName)
+    
     // let findCurrentSpouse = people.filter(function (person) {
     //     if (person.id === currentSpouse) {
     //         return true;
     //     }
     // });
     // return findCurrentSpouse;
-    let parents = person.parents;
-    let foundParents = findParent(parents, people);
+    // let parents = person.parents;
+    let foundParents = findParent(person, people);
     // let siblings = person.parents;
     let foundSiblings = findSiblings(person, people);
+
     let family = [foundCurrentSpouse, foundParents, foundSiblings];
     // displyFamilyInfo(foundCurrentSpouse, foundParents);
-    return displayPeople(family)
+    // alert(family)
 }
+
 
 // function displyFamilyInfo(foundCurrentSpouse, foundParents){
-//     let familyInfo = `Current Spouse: ${foundCurrentSpouse.firstName} ${foundCurrentSpouse.lastName} \n Parent: ${foundParents.firstName} ${foundParents.lastName}.`
-//     alert(familyInfo)
-// }
-
-function findSpouse(currentSpouse, people){
-    // if (!currentSpouse[0]){
-    //     return `No current spouse recorded.`
+    //     let familyInfo = `Current Spouse: ${foundCurrentSpouse.firstName} ${foundCurrentSpouse.lastName} \n Parent: ${foundParents.firstName} ${foundParents.lastName}.`
+    //     alert(familyInfo)
     // }
-    let openMessage = `Let's find your Current Spouse!`
-    alert(openMessage)
-    let findCurrentSpouse = people.filter(function (person) {
-        if (person.id === currentSpouse.currentSpouse) {
-            return true;
-        } else{
-            return false;
-        }
-    })
-    displayPeople(findCurrentSpouse);
-    
-}
 
-
-function findParent(parents, people){
-    if (!parents[0]){
-        return `No Parent Recorded.`
+function findSpouse(person, people){
+    // if (!currentSpouse[0]){
+        //     return `No current spouse recorded.`
+        // }
+        let openMessage = `Let's find your Current Spouse!`
+        alert(openMessage)
+        let spouse = person.currentSpouse
+        let findCurrentSpouse = people.filter(function (persons) {
+            if (persons.id === spouse) {
+                return true;
+            } else{
+                return false;
+            }
+        })
+        displayPeople(findCurrentSpouse)
+        return(findCurrentSpouse)
+        // let foundMessage = `your current spouse is ${findCurrentSpouse.firstName} ${findCurrentSpouse.lastName}`
+        // alert(foundMessage)
+        
     }
+        
+        
+function findParent(person, people){
     let openMessage = `Let's look for your parent!`
     alert(openMessage)
-
+    
+    let parent = person.parents;
+    if (!parent[0]){
+        alert `No Parent Recorded.`
+    }
     let findTheParent = people.filter(function (person) {
         // if (person.id === parseInt(parents)) {
-        if (parents.includes(person.id)){
-            return true;
-        } else{
-            return false;
-        }
-    })
-    //use parent fucntion in siblings
+            if (parent.includes(person.id)){
+                return true;
+            } else{
+                return false;
+            }
+        })
+    
+        //use parent fucntion in siblings
     displayPeople(findTheParent);
     return (findTheParent)
-}
-
-
+    }
+            
+            // function findSiblings(person, people){
 function findSiblings(person, people){
-    let openMessage = `Let's look for your siblings!`
+    let openMessage = `Let's Look for your siblings.`
     alert(openMessage);
+    // let commonParent = foundParents;
+    if (!person.parents[0]){
+        alert `No Siblings.`
+    }
     let findAllSiblings = people.filter(function (persons){
-        if (persons.parents === person.parents){
+        if (persons.parents.includes(person.parents[0])){
             return true;
         } else{
-            return false;
+            return false
         }
     })
     displayPeople(findAllSiblings)
+    return(findAllSiblings)
+
 }
+
+
+
 
 function findPersonDescendants(person, people){
-    let openMessage = `Let's look for your descendants!`;
-    alert(openMessage);
-    let findAllDescendants = people.filter(function (persons){
-        if(persons.parents.includes(person.id)){
-            return true;
-        } else{
-            return false;
-        }
-    })
-    // displayPeople(findAllDescendants)
+    // let openMessage = `Let's look for your descendants!`;
+    // alert(openMessage);
+    let descTotal = [person];
+    let descArray = people.filter(persons => persons.parents.includes(person.id));
+    if(descArray.length === 0) return descTotal;
 
-    recursiveFindSubsidiaries(findAllDescendants)
+    for (let i = 0; i < descArray.length; i++) {
+        descTotal = descTotal.concat(findPersonDescendants(descArray[i], people));
+    }
+    displayPeople(descTotal)
+    return descTotal;
 }
 
 
 
-// function findPersonDescendants(person, people){
-//     let openMessage = `Let's look for your descendants!`;
-//     alert(openMessage);
-//     let findAllDescendants = people.filter(function (persons){
-//         if(persons.parents.includes(person.id)){
-//             return true;
-//         } else{
-//             return false;
-//         }
-//     })
-//     if (subDesce)
-//     displayPeople(findAllDescendants)
-// }
-
-
-function recursiveFindSubsidiaries(findAllDescendants, array = []){
-    let subArray = findAllDescendants.subsidiaries;
-    array = [findAllDescendants];
-    if (subArray.length === 0){
-        return array;
-    }
-    for (let i = 0; i < subArray.length; i++) {
-        array = array.concat(
-            recursiveFindSubsidiaries(subArray[i])
-        );
-    }
-    return displayPeople(array)
-}
